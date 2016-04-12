@@ -2,7 +2,6 @@ package generator
 
 import picker.AnnotationPicker
 
-import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation
 import org.eclipse.xtend.core.xtend.XtendFunction
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EClass
@@ -10,6 +9,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EFactory
 import java.util.List
+import entity.Annotation
 
 class ModelGenerator
 {
@@ -20,7 +20,7 @@ class ModelGenerator
 	}
 
 	def generate(AnnotationPicker picker) {
-		picker.annotations.forEach[ visit ]
+		picker.annotations.all.forEach[ visit ]
 	}
 
 	def result() {
@@ -34,11 +34,11 @@ class ModelGenerator
 	var EPackage metamodel
 	var EFactory factory
 
-	def private dispatch void visit(XAnnotation annotation) {
-		val annotationName = annotation.annotationType.simpleName
+	def private dispatch void visit(Annotation annotation) {
+		val annotationName = annotation.XAnnotation.annotationType.simpleName
 		val eClass = findEClassByName(annotationName)
 		val xtendMember = eClass.EAttributes.findFirst[ name == "xtendMember" ]
-		val method = (picker.annotationsWithReferences.get(annotation) as XtendFunction).name
+		val method = (annotation.XTarget as XtendFunction).name
 		val eObject = factory.create(eClass)
 		eObject.eSet(xtendMember, method)
 

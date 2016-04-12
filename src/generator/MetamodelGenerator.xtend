@@ -1,8 +1,8 @@
 package generator
 
 import picker.AnnotationPicker
+import entity.Annotation
 
-import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EClass
@@ -13,7 +13,7 @@ class MetamodelGenerator
 {
 	def generate(AnnotationPicker picker) {
 		initializeMetamodel
-		picker.annotations.forEach[ visit ]
+		picker.annotations.all.forEach[ visit ]
 		return metamodel
 	}
 
@@ -35,8 +35,8 @@ class MetamodelGenerator
 	/**
 	 * @TODO: use the full annotation JVM name
 	 */
-	def private dispatch void visit(XAnnotation annotation) {
-		val annotationName = annotation.annotationType.simpleName
+	def private dispatch void visit(Annotation annotation) {
+		val annotationName = annotation.XAnnotation.annotationType.simpleName
 		if (!classExists(annotationName)) {
 			val eClass = createClass(annotationName)
 			val eClassList = createListClass(eClass)
