@@ -24,7 +24,7 @@ class Busimo
 		val metamodelGenerator = new MetamodelGenerator
 		metamodelGenerator.generate(picker)
 		val metamodel = metamodelGenerator.result
-		Utils::saveModel(metamodel, '''./assets/gen/a/metamodel.ecore''', "ecore")
+		Utils::saveModel(metamodel, '''./assets/gen/metamodel.ecore''', "ecore")
 
 		val modelGenerator = new ModelGenerator(picker, metamodel as EPackage)
 		modelGenerator.generate(picker)
