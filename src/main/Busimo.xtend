@@ -1,5 +1,6 @@
 package main
 
+import generator.MetametamodelGenerator
 import generator.MetamodelGenerator
 import generator.ModelGenerator
 import generator.DesignGenerator
@@ -20,6 +21,11 @@ class Busimo
 		val path = 'assets/inputs/EcoreTest.xtend'
 		val picker = new AnnotationPicker
 		picker.pick(Utils::loadXtendFile(path))
+
+		val metametamodelGenerator = new MetametamodelGenerator
+		metametamodelGenerator.generate
+		val metametamodel = metametamodelGenerator.result
+		Utils::saveModel(metametamodel, '''./assets/gen/metametamodel.ecore''', "ecore")
 
 		val metamodelGenerator = new MetamodelGenerator
 		metamodelGenerator.generate(picker)
