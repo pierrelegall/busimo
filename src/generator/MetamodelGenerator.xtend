@@ -3,7 +3,6 @@ package generator
 import picker.AnnotationPicker
 import entity.Annotation
 
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EcoreFactory
@@ -17,7 +16,7 @@ class MetamodelGenerator
 		return metamodel
 	}
 
-	def EObject result() {
+	def EPackage result() {
 		return metamodel
 	}
 
