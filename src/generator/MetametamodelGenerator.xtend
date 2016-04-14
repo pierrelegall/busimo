@@ -50,7 +50,7 @@ class MetametamodelGenerator
 		businessObjectList.name = "BusinessObjectList"
 		val reference = EcoreFactory.eINSTANCE.createEReference
 		reference.name = "objects"
-		reference.EType = businessObjectList
+		reference.EType = businessObject
 		reference.lowerBound = 0
 		reference.upperBound = -1
 		reference.containment = true
