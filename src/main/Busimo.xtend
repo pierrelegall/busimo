@@ -8,7 +8,7 @@ import generator.RepresentationGenerator
 import picker.AnnotationPicker
 import util.Utils
 
-import org.eclipse.emf.ecore.EPackage
+import java.nio.file.Paths
 
 class Busimo
 {
@@ -18,32 +18,33 @@ class Busimo
 	}
 
 	def static make() {
-		val path = 'assets/inputs/EcoreTest.xtend'
 		val picker = new AnnotationPicker
-		picker.pick(Utils::loadXtendFile(path))
+		val inputPath = Paths.get("./assets/inputs/EcoreTest.xtend")
+		picker.pick(Utils::loadXtendFile(inputPath.toRealPath.toString))
 
 		val metametamodelGenerator = new MetametamodelGenerator
-		metametamodelGenerator.generate
-		val metametamodel = metametamodelGenerator.result
-		Utils::saveModel(metametamodel, '''./assets/gen/metametamodel.ecore''', "ecore")
+		val metametamodel = metametamodelGenerator.generate
+		val metametamodelPath = Paths.get("./assets/gen/metametamodel.ecore")
+		Utils::saveModel(metametamodel, metametamodelPath.toRealPath.toString, "ecore")
 
 		val metamodelGenerator = new MetamodelGenerator
-		metamodelGenerator.generate(picker)
-		val metamodel = metamodelGenerator.result
-		Utils::saveModel(metamodel, '''./assets/gen/metamodel.ecore''', "ecore")
+		val metamodel = metamodelGenerator.generate(picker, metametamodel)
+		val metamodelPath = Paths.get("./assets/gen/metamodel.ecore")
+		Utils::saveModel(metamodel, metamodelPath.toRealPath.toString, "ecore")
 
 		val modelGenerator = new ModelGenerator(picker, metamodel)
-		modelGenerator.generate(picker)
-		val model = modelGenerator.result
-		Utils::saveModelToXmi(model, '''./assets/gen/model.xmi''', "*")
+		val model = modelGenerator.generate(picker)
+		val modelPath = Paths.get("./assets/gen/model.xmi")
+		Utils::saveModelToXmi(model, modelPath.toRealPath.toString, "*")
 
 		val designGenerator = new DesignGenerator
-		val design = designGenerator.generate(metamodel as EPackage)
-		Utils::saveModel(design, '''./assets/gen/style.odesign''')
+		val design = designGenerator.generate(metamodel)
+		val designPath = Paths.get("./assets/gen/style.odesign")
+		Utils::saveModel(design, designPath.toRealPath.toString)
 
 		val representationGenerator = new RepresentationGenerator
-		representationGenerator.generate
-		val represensation = representationGenerator.result
-		Utils::saveModel(represensation, '''./assets/gen/representation.aird''')
+		val representation = representationGenerator.generate
+		val representationPath = Paths.get("./assets/gen/representation.aird")
+		Utils::saveModel(representation, representationPath.toRealPath.toString)
 	}
 }

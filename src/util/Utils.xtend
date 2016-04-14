@@ -29,7 +29,9 @@ class Utils
 		resource.getContents().add(model)
 
 		try {
-			resource.save(null)
+			val options = new HashMap
+			options.put(XMLResource.OPTION_SCHEMA_LOCATION, true)
+			resource.save(options)
 		} catch (IOException exception) {
 			exception.printStackTrace
 		}
@@ -61,18 +63,7 @@ class Utils
 		try {
 			val options = new HashMap
 			options.put(XMLResource.OPTION_SCHEMA_LOCATION, true)
-			// An attempt to remove the hack below
-			options.put(XMLResource.XML_SCHEMA_URI, "metamodel.ecore")
 			resource.save(options)
-
-			// @TODO find a nice way to remove the hack below
-			// UGLY_HACK_BEGIN
-			val path = Paths.get(uri)
-			val charset = StandardCharsets.UTF_8
-			var content = new String(Files.readAllBytes(path), charset)
-			content = content.replaceAll("./assets/gen/", "./")
-			Files.write(path, content.getBytes(charset))
-		  // UGLY_HACK_END
 		} catch (IOException exception) {
 			exception.printStackTrace
 		}
@@ -88,5 +79,16 @@ class Utils
 
 	def static XtendFile loadXtendFile(File file) {
 		loadXtendFile(file.absolutePath)
+	}
+
+	/* Private */
+
+	// UGLY HACK, not used anymore but maybe useful
+	def private static cleanPath(String uri) {
+		val path = Paths.get(uri)
+		val charset = StandardCharsets.UTF_8
+		var content = new String(Files.readAllBytes(path), charset)
+		content = content.replaceAll("./assets/gen/", "./")
+		Files.write(path, content.getBytes(charset))
 	}
 }
