@@ -25,7 +25,7 @@ class Utils
 		val resourceSet = new ResourceSetImpl();
 
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(type, new XMLResourceFactoryImpl)
-		val resource = resourceSet.createResource(URI.createURI(uri))
+		val resource = resourceSet.createResource(URI.createFileURI(uri))
 		resource.getContents().add(model)
 
 		try {
@@ -56,8 +56,7 @@ class Utils
 		val Map<String, Object> map = registry.getExtensionToFactoryMap
 		map.put("uri", new XMIResourceFactoryImpl)
 		val resourceSet = new ResourceSetImpl
-
-		val resource = resourceSet.createResource(URI.createURI(uri))
+		val resource = resourceSet.createResource(URI.createFileURI(uri))
 		resource.getContents().add(model)
 
 		try {
