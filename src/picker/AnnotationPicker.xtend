@@ -35,8 +35,6 @@ class AnnotationPicker
 	}
 
 	def private dispatch void visit(XtendFunction function) {
-		function.annotations.forEach[
-			storage.add(function)
-		]
+		storage.add(function)
 	}
 }
