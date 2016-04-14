@@ -21,10 +21,11 @@ class ModelGenerator
 
 	def generate(AnnotationPicker picker) {
 		picker.annotations.all.forEach[ visit ]
+		return result
 	}
 
 	def result() {
-		model
+		return model
 	}
 
 	/* Private */

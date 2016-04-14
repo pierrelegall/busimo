@@ -7,7 +7,12 @@ import org.eclipse.emf.ecore.EClass
 class DesignGenerator
 {
 	def generate(EPackage metamodel) {
-		return metamodel.visit
+		design = metamodel.visit
+		return result
+	}
+
+	def result() {
+		return design
 	}
 
 	/* Private */

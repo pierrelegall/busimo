@@ -12,10 +12,11 @@ class RepresentationGenerator
 			  </ownedViews>
 			</viewpoint:DAnalysis>
 		'''
+		return result
 	}
 
 	def result() {
-		representation
+		return representation
 	}
 
 	/* Private */

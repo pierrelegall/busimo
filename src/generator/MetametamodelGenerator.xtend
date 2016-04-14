@@ -9,7 +9,7 @@ class MetametamodelGenerator
 {
 	def generate() {
 		initializeMetamodel
-		return metametamodel
+		return result
 	}
 
 	def EPackage result() {

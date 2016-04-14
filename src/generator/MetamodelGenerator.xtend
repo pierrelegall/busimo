@@ -13,7 +13,7 @@ class MetamodelGenerator
 	def generate(AnnotationPicker picker) {
 		initializeMetamodel
 		picker.annotations.all.forEach[ visit ]
-		return metamodel
+		return result
 	}
 
 	def EPackage result() {
