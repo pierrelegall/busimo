@@ -24,15 +24,12 @@ class MetamodelGenerator
 
 	var EPackage metametamodel
 	var EPackage metamodel
-	var EClass businessContainer
 
 	def private void initializeMetamodel() {
 		metamodel = EcoreFactory.eINSTANCE.createEPackage()
 		metamodel.name = "BusimoInferredModel"
 		metamodel.nsPrefix = "busimo.inferred.model"
 		metamodel.nsURI = "busimo.inferred.model"
-		this.businessContainer = createBusinessContainer
-		metamodel.EClassifiers.add(this.businessContainer)
 	}
 
 	/**
@@ -68,10 +65,6 @@ class MetamodelGenerator
 		eClassList.name = eClass.name.toFirstUpper + "List"
 		eClassList.ESuperTypes.add(findClass("BusinessObjectList"))
 		return eClassList
-	}
-
-	def private createBusinessContainer() {
-		return findClass("BusinessContainer")
 	}
 
 	def private findClass(String name) {

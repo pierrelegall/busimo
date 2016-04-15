@@ -13,27 +13,27 @@ class MetametamodelGenerator
 	}
 
 	def EPackage result() {
-		return metametamodel
+		return metamodel
 	}
 
 	/* Private */
 
-	var EPackage metametamodel
+	var EPackage metamodel
 	var EClass businessObject
 	var EClass businessObjectList
 	var EClass businessContainer
 
 	def private void initializeMetamodel() {
-		metametamodel = EcoreFactory.eINSTANCE.createEPackage()
-		metametamodel.name = "BusimoModel"
-		metametamodel.nsPrefix = "busimo.model"
-		metametamodel.nsURI = "busimo.model"
+		metamodel = EcoreFactory.eINSTANCE.createEPackage()
+		metamodel.name = "BusimoModel"
+		metamodel.nsPrefix = "busimo.model"
+		metamodel.nsURI = "busimo.model"
 		initializeBusinessObject
-		metametamodel.EClassifiers.add(businessObject)
+		metamodel.EClassifiers.add(businessObject)
 		initializeBusinessObjectList
-		metametamodel.EClassifiers.add(businessObjectList)
+		metamodel.EClassifiers.add(businessObjectList)
 		initializeBusinessContainer
-		metametamodel.EClassifiers.add(businessContainer)
+		metamodel.EClassifiers.add(businessContainer)
 	}
 
 	def private void initializeBusinessObject() {
@@ -67,5 +67,6 @@ class MetametamodelGenerator
 		reference.upperBound = -1
 		reference.containment = true
 		businessContainer.EStructuralFeatures.add(reference)
+		metamodel.EClassifiers.add(businessContainer)
 	}
 }

@@ -12,11 +12,13 @@ import java.util.List
 
 class ModelGenerator
 {
-	new(AnnotationPicker picker, EPackage metamodel) {
+	new(AnnotationPicker picker, EPackage inferredMetamodel, EPackage staticMetamodel) {
 		this.picker = picker
-		this.metamodel = metamodel
-		this.factory = metamodel.EFactoryInstance
-		this.model = factory.create(findClass("BusinessContainer"))
+		this.metamodel = inferredMetamodel
+		this.factory = inferredMetamodel.EFactoryInstance
+		this.model = staticMetamodel.EFactoryInstance.create(
+			findClass("BusinessContainer", staticMetamodel)
+		)
 	}
 
 	def generate(AnnotationPicker picker) {
@@ -49,6 +51,10 @@ class ModelGenerator
 	}
 
 	def private findClass(String name) {
+		findClass(name, metamodel)
+	}
+
+	def private findClass(String name, EPackage metamodel) {
 		return metamodel.EClassifiers.findFirst[ eObject |
 			(eObject instanceof EClass) && eObject.name == name
 		] as EClass
