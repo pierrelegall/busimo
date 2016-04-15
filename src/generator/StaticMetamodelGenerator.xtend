@@ -49,7 +49,7 @@ class StaticMetamodelGenerator
 		businessObjectList = EcoreFactory.eINSTANCE.createEClass
 		businessObjectList.name = "BusinessObjectList"
 		val reference = EcoreFactory.eINSTANCE.createEReference
-		reference.name = "objects"
+		reference.name = "object"
 		reference.EType = businessObject
 		reference.lowerBound = 0
 		reference.upperBound = -1
@@ -61,7 +61,7 @@ class StaticMetamodelGenerator
 		businessContainer = EcoreFactory.eINSTANCE.createEClass
 		businessContainer.name = "BusinessContainer"
 		val reference = EcoreFactory.eINSTANCE.createEReference
-		reference.name = "objectLists"
+		reference.name = "objects"
 		reference.EType = businessObjectList
 		reference.lowerBound = 0
 		reference.upperBound = -1

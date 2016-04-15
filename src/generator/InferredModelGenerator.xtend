@@ -80,12 +80,12 @@ class InferredModelGenerator
 
 	def private businessObjectsReference(EClass businessClassList) {
 		val businessObjectList = businessObjectListInstance(businessClassList)
-		val reference = businessClassList.EAllReferences.findFirst[ name == "objects" ]
+		val reference = businessClassList.EAllReferences.findFirst[ name == "object" ]
 		return businessObjectList.eGet(reference) as List<EObject>
 	}
 
 	def private businessObjectListsReference() {
-		val reference = model.eClass.EAllReferences.findFirst[ name == "objectLists" ]
+		val reference = model.eClass.EAllReferences.findFirst[ name == "objects" ]
 		return model.eGet(reference) as List<EObject>
 	}
 }
