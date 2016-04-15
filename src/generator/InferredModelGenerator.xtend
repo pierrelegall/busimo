@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EFactory
 import java.util.List
 
-class ModelGenerator
+class InferredModelGenerator
 {
 	new(AnnotationPicker picker, EPackage inferredMetamodel, EPackage staticMetamodel) {
 		this.picker = picker

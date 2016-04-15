@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EcoreFactory
 
-class MetamodelGenerator
+class InferredMetamodelGenerator
 {
 	def generate(AnnotationPicker picker, EPackage metametamodel) {
 		this.metametamodel = metametamodel

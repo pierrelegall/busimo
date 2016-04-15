@@ -5,7 +5,7 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.EcorePackage
 
-class MetametamodelGenerator
+class StaticMetamodelGenerator
 {
 	def generate() {
 		initializeMetamodel
