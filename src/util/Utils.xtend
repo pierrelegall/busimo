@@ -22,6 +22,7 @@ import java.util.HashMap
 class Utils
 {
 	def static void saveModel(EObject model, String uri, String type) {
+		createFileIfNotExists(uri)
 		val resourceSet = new ResourceSetImpl();
 
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(type, new XMLResourceFactoryImpl)
@@ -38,11 +39,10 @@ class Utils
 	}
 
 	def static void saveModel(String content, String uri) {
-		val file = new File(uri);
-		if (!file.exists) file.createNewFile
+		val file = createFileIfNotExists(uri)
 
 		try {
-			val fileWriter = new FileWriter(file.getAbsoluteFile())
+			val fileWriter = new FileWriter(file.getAbsoluteFile)
 			val bufferWriter = new BufferedWriter(fileWriter)
 			bufferWriter.write(content)
 			bufferWriter.close
@@ -80,10 +80,16 @@ class Utils
 		loadXtendFile(file.absolutePath)
 	}
 
+	def static createFileIfNotExists(String uri) {
+		val file = new File(uri)
+		if (!file.exists) file.createNewFile
+		return file
+	}
+
 	/* Private */
 
 	// UGLY HACK, not used anymore but maybe useful
-	def private static cleanPath(String uri) {
+	def private static void cleanPath(String uri) {
 		val path = Paths.get(uri)
 		val charset = StandardCharsets.UTF_8
 		var content = new String(Files.readAllBytes(path), charset)
