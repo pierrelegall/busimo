@@ -40,7 +40,7 @@ class StaticMetamodelGenerator
 		businessObject = EcoreFactory.eINSTANCE.createEClass
 		businessObject.name = "BusinessObject"
 		val attribute = EcoreFactory.eINSTANCE.createEAttribute
-		attribute.name = "xtendMember"
+		attribute.name = "target"
 		attribute.EType = EcorePackage.eINSTANCE.getEString
 		businessObject.EStructuralFeatures.add(attribute)
 	}

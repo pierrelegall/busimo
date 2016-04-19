@@ -42,9 +42,9 @@ class InferredModelGenerator
 		val businessClass = findClass(annotationName.toFirstUpper)
 		val businessObject = factory.create(businessClass)
 
-		val xtendMember = businessClass.EAllAttributes.findFirst[ name == "xtendMember" ]
+		val target = businessClass.EAllAttributes.findFirst[ name == "target" ]
 		val method = (annotation.XTarget as XtendFunction).name
-		businessObject.eSet(xtendMember, method)
+		businessObject.eSet(target, method)
 
 		val businessClassList = findClassList(businessClass)
 		businessObjectsReference(businessClassList).add(businessObject)
