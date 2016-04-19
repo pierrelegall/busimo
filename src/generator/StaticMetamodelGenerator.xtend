@@ -24,10 +24,10 @@ class StaticMetamodelGenerator
 	var EClass businessContainer
 
 	def private void initializeMetamodel() {
-		metamodel = EcoreFactory.eINSTANCE.createEPackage()
-		metamodel.name = "BusimoModel"
-		metamodel.nsPrefix = "busimo.model"
-		metamodel.nsURI = "busimo.model"
+		metamodel = EcoreFactory.eINSTANCE.createEPackage
+		metamodel.name = "BusimoStaticModel"
+		metamodel.nsPrefix = "busimo.model.static"
+		metamodel.nsURI = "busimo.model.static"
 		initializeBusinessObject
 		metamodel.EClassifiers.add(businessObject)
 		initializeBusinessObjectList

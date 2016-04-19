@@ -26,10 +26,10 @@ class InferredMetamodelGenerator
 	var EPackage metamodel
 
 	def private void initializeMetamodel() {
-		metamodel = EcoreFactory.eINSTANCE.createEPackage()
+		metamodel = EcoreFactory.eINSTANCE.createEPackage
 		metamodel.name = "BusimoInferredModel"
-		metamodel.nsPrefix = "busimo.inferred.model"
-		metamodel.nsURI = "busimo.inferred.model"
+		metamodel.nsPrefix = "busimo.model.inferred"
+		metamodel.nsURI = "busimo.model.inferred"
 	}
 
 	/**
