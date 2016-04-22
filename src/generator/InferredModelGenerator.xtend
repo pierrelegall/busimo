@@ -3,6 +3,8 @@ package generator
 import picker.AnnotationPicker
 import entity.Annotation
 
+import org.eclipse.xtend.core.xtend.XtendAnnotationTarget
+import org.eclipse.xtend.core.xtend.XtendClass
 import org.eclipse.xtend.core.xtend.XtendFunction
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EClass
@@ -43,8 +45,7 @@ class InferredModelGenerator
 		val businessObject = factory.create(businessClass)
 
 		val target = businessClass.EAllAttributes.findFirst[ name == "target" ]
-		val method = (annotation.XTarget as XtendFunction).name
-		businessObject.eSet(target, method)
+		businessObject.eSet(target, getXtendAnnotationTargetName(annotation.XTarget))
 
 		val businessClassList = findClassList(businessClass)
 		businessObjectsReference(businessClassList).add(businessObject)
@@ -87,5 +88,15 @@ class InferredModelGenerator
 	def private businessObjectListsReference() {
 		val reference = model.eClass.EAllReferences.findFirst[ name == "objects" ]
 		return model.eGet(reference) as List<EObject>
+	}
+
+	def private getXtendAnnotationTargetName(XtendAnnotationTarget xTarget) {
+		if (xTarget instanceof XtendClass) {
+			return "Class:" + xTarget.name
+		} else if (xTarget instanceof XtendFunction) {
+			return "Function:" + xTarget.name
+		} else {
+			return "?"
+		}
 	}
 }
