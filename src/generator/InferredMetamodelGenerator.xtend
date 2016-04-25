@@ -1,16 +1,17 @@
 package generator
 
-import picker.AnnotationPicker
-import entity.Annotation
-
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EcoreFactory
 
+import picker.AnnotationPicker
+import entity.Annotation
+import storage.AnnotationStorage
+
 class InferredMetamodelGenerator
 {
-	def generate(AnnotationPicker picker, EPackage metametamodel) {
-		this.metametamodel = metametamodel
+	def generate(AnnotationPicker picker, EPackage staticMetamodel) {
+		this.staticMetamodel = staticMetamodel
 		initializeMetamodel
 		picker.annotations.all.forEach[ visit ]
 		return result
@@ -68,7 +69,7 @@ class InferredMetamodelGenerator
 	}
 
 	def private findClass(String name) {
-		return metametamodel.EClassifiers.findFirst[ eObject |
+		return staticMetamodel.EClassifiers.findFirst[ eObject |
 			(eObject instanceof EClass) && eObject.name == name
 		] as EClass
 	}
