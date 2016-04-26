@@ -7,6 +7,7 @@ import storage.AnnotationStorage
 import org.eclipse.xtend.core.xtend.XtendAnnotationTarget
 import org.eclipse.xtend.core.xtend.XtendClass
 import org.eclipse.xtend.core.xtend.XtendFunction
+import org.eclipse.xtend.core.xtend.XtendField
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
@@ -116,6 +117,8 @@ class InferredModelGenerator
 			return "Class:" + xTarget.name
 		} else if (xTarget instanceof XtendFunction) {
 			return "Function:" + xTarget.name
+		} else if (xTarget instanceof XtendField) {
+			return "Field:" + xTarget.name
 		} else {
 			return "?"
 		}
