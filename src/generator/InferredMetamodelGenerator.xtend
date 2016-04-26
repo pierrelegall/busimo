@@ -63,9 +63,6 @@ class InferredMetamodelGenerator
 	}
 
 	private
-	def dispatch void visit(AnnotationStorage a) {}
-
-	private
 	def createClassIfNotExists(String className) {
 		var eClass = findClass(className)
 		if (eClass == null) {
