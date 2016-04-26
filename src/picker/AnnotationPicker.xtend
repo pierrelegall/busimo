@@ -52,11 +52,11 @@ class AnnotationPicker
 
 	private
 	def dispatch void visit(XtendField field) {
-		stack.peek.add(field)
+		if (!field.isExtension) stack.peek.add(field)
 	}
 
 	private
 	def dispatch void visit(XtendFunction function) {
-		stack.peek.add(function)
+		if (!function.isStatic) stack.peek.add(function)
 	}
 }
