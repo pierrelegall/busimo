@@ -19,7 +19,8 @@ class DesignGenerator
 
 	var String design
 
-	def private dispatch visit(EPackage backage) {
+	private
+	def dispatch visit(EPackage backage) {
 		val classes = backage.eContents.filter[ eObject |
 				eObject instanceof EClass
 		]
@@ -39,9 +40,11 @@ class DesignGenerator
 		'''
 	}
 
-	def private dispatch visit(EObject object) {}
+	private
+	def dispatch visit(EObject object) {}
 
-	def private dispatch visit(EClass klass) {
+	private
+	def dispatch visit(EClass klass) {
 		return '''
 			<nodeMappings name="«klass.name»" label="«klass.name»" semanticCandidatesExpression="feature:members" domainClass="«klass.name»">
 			  <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW">

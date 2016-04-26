@@ -29,7 +29,8 @@ class InferredMetamodelGenerator
 	var EPackage metamodel
 	var Stack<EClass> stack = new Stack
 
-	def private void initializeMetamodel() {
+	private
+	def void initializeMetamodel() {
 		metamodel = EcoreFactory.eINSTANCE.createEPackage
 		metamodel.name = "BusimoInferredModel"
 		metamodel.nsPrefix = "busimo.model.inferred"
@@ -39,7 +40,8 @@ class InferredMetamodelGenerator
 	/**
 	 * @TODO: use the full JVM annotation name
 	 */
-	def private dispatch void visit(Annotation annotation) {
+	private
+	def dispatch void visit(Annotation annotation) {
 		val annotationName = annotation.XAnnotation.annotationType.simpleName
 		val eClass = createClassIfNotExists(annotationName)
 
@@ -60,9 +62,11 @@ class InferredMetamodelGenerator
 		stack.pop
 	}
 
-	def private dispatch void visit(AnnotationStorage a) {}
+	private
+	def dispatch void visit(AnnotationStorage a) {}
 
-	def private createClassIfNotExists(String className) {
+	private
+	def createClassIfNotExists(String className) {
 		var eClass = findClass(className)
 		if (eClass == null) {
 			return createClass(className)
@@ -71,7 +75,8 @@ class InferredMetamodelGenerator
 		}
 	}
 
-	def private classExists(String annotationName) {
+	private
+	def classExists(String annotationName) {
 		return metamodel.EClassifiers.filter[ eObject |
 			eObject instanceof EClass
 		].exists[ eObject |
@@ -79,7 +84,8 @@ class InferredMetamodelGenerator
 		]
 	}
 
-	def private createClass(String name) {
+	private
+	def createClass(String name) {
 		val eClass = EcoreFactory.eINSTANCE.createEClass
 		eClass.name = name.toFirstUpper
 		metamodel.EClassifiers.add(eClass)
@@ -87,7 +93,8 @@ class InferredMetamodelGenerator
 		return eClass
 	}
 
-	def private createReference(EClass eClass, boolean containment) {
+	private
+	def createReference(EClass eClass, boolean containment) {
 		val reference = EcoreFactory.eINSTANCE.createEReference
 		reference.name = eClass.name.toFirstLower
 		reference.EType = eClass
@@ -97,11 +104,13 @@ class InferredMetamodelGenerator
 		return reference
 	}
 
-	def private createReference(EClass eClass) {
+	private
+	def createReference(EClass eClass) {
 		return createReference(eClass, false)
 	}
 
-	def private createClassList(EClass eClass) {
+	private
+	def createClassList(EClass eClass) {
 		val eClassList = EcoreFactory.eINSTANCE.createEClass
 		eClassList.name = eClass.name.toFirstUpper + "List"
 		eClassList.EStructuralFeatures.add(createReference(eClass, true))
@@ -109,13 +118,15 @@ class InferredMetamodelGenerator
 		return eClassList
 	}
 
-	def private findClass(String name, EPackage metamodel) {
+	private
+	def findClass(String name, EPackage metamodel) {
 		return metamodel.EClassifiers.findFirst[ eObject |
 			(eObject instanceof EClass) && eObject.name == name
 		] as EClass
 	}
 
-	def private findClass(String name) {
+	private
+	def findClass(String name) {
 		return findClass(name, metamodel)
 	}
 }

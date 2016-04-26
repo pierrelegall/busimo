@@ -20,7 +20,7 @@ class Annotation
 		this.subAnnotations = new AnnotationStorage
 	}
 
-	def override hashCode() {
+	override hashCode() {
 		return this.xAnnotation.hashCode
 	}
 

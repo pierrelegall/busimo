@@ -29,20 +29,24 @@ class AnnotationPicker
 	var XtendFile source
 	val stack = new Stack<AnnotationStorage>
 
-	def private dispatch void visit(XtendFile ast) {
+	private
+	def dispatch void visit(XtendFile ast) {
 		ast.xtendTypes.forEach[ visit ]
 	}
 
-	def private dispatch void visit(XtendMember member) {}
+	private
+	def dispatch void visit(XtendMember member) {}
 
-	def private dispatch void visit(XtendClass klass) {
+	private
+	def dispatch void visit(XtendClass klass) {
 		stack.push(new AnnotationStorage)
 		klass.members.forEach[ visit ]
 		val subAnnotations = stack.pop
 		stack.peek.add(klass, subAnnotations)
 	}
 
-	def private dispatch void visit(XtendFunction function) {
+	private
+	def dispatch void visit(XtendFunction function) {
 		stack.peek.add(function)
 	}
 }

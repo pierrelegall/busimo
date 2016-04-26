@@ -23,7 +23,8 @@ class StaticMetamodelGenerator
 	var EClass businessObjectList
 	var EClass businessContainer
 
-	def private void initializeMetamodel() {
+	private
+	def void initializeMetamodel() {
 		metamodel = EcoreFactory.eINSTANCE.createEPackage
 		metamodel.name = "BusimoStaticModel"
 		metamodel.nsPrefix = "busimo.model.static"
@@ -36,7 +37,8 @@ class StaticMetamodelGenerator
 		metamodel.EClassifiers.add(businessContainer)
 	}
 
-	def private void initializeBusinessObject() {
+	private
+	def void initializeBusinessObject() {
 		businessObject = EcoreFactory.eINSTANCE.createEClass
 		businessObject.name = "BusinessObject"
 		val attribute = EcoreFactory.eINSTANCE.createEAttribute
@@ -45,7 +47,8 @@ class StaticMetamodelGenerator
 		businessObject.EStructuralFeatures.add(attribute)
 	}
 
-	def private void initializeBusinessObjectList() {
+	private
+	def void initializeBusinessObjectList() {
 		businessObjectList = EcoreFactory.eINSTANCE.createEClass
 		businessObjectList.name = "BusinessObjectList"
 		val reference = EcoreFactory.eINSTANCE.createEReference
@@ -57,7 +60,8 @@ class StaticMetamodelGenerator
 		businessObjectList.EStructuralFeatures.add(reference)
 	}
 
-	def private void initializeBusinessContainer() {
+	private
+	def void initializeBusinessContainer() {
 		businessContainer = EcoreFactory.eINSTANCE.createEClass
 		businessContainer.name = "BusinessContainer"
 		val reference = EcoreFactory.eINSTANCE.createEReference

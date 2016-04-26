@@ -42,7 +42,8 @@ class InferredModelGenerator
 	var EFactory factory
 	var Stack<EObject> stack = new Stack
 
-	def private dispatch void visit(Annotation annotation) {
+	private
+	def dispatch void visit(Annotation annotation) {
 		val annotationName = annotation.XAnnotation.annotationType.simpleName
 		val businessClass = findClass(annotationName.toFirstUpper)
 		val businessObject = factory.create(businessClass)
@@ -66,23 +67,27 @@ class InferredModelGenerator
 		stack.pop
 	}
 
-	def private findClass(String name) {
+	private
+	def findClass(String name) {
 		findClass(name, metamodel)
 	}
 
-	def private findClass(String name, EPackage metamodel) {
+	private
+	def findClass(String name, EPackage metamodel) {
 		return metamodel.EClassifiers.findFirst[ eObject |
 			(eObject instanceof EClass) && eObject.name == name
 		] as EClass
 	}
 
-	def private findClassList(EClass eClass) {
+	private
+	def findClassList(EClass eClass) {
 		return metamodel.EClassifiers.findFirst[ eObject |
 			(eObject instanceof EClass) && eObject.name == eClass.name + "List"
 		] as EClass
 	}
 
-	def private businessObjectListInstance(EClass businessClassList) {
+	private
+	def businessObjectListInstance(EClass businessClassList) {
 		val objectLists = businessObjectListsReference
 		var list = objectLists.findFirst[ eClass == businessClassList ]
 		if (list == null) {
@@ -92,18 +97,21 @@ class InferredModelGenerator
 		return list
 	}
 
-	def private businessObjectsReference(EClass businessClassList) {
+	private
+	def businessObjectsReference(EClass businessClassList) {
 		val businessObjectList = businessObjectListInstance(businessClassList)
 		val reference = businessClassList.EAllReferences.findFirst[ true ]
 		return businessObjectList.eGet(reference) as List<EObject>
 	}
 
-	def private businessObjectListsReference() {
+	private
+	def businessObjectListsReference() {
 		val reference = model.eClass.EAllReferences.findFirst[ name == "objects" ]
 		return model.eGet(reference) as List<EObject>
 	}
 
-	def private getXtendAnnotationTargetName(XtendAnnotationTarget xTarget) {
+	private
+	def getXtendAnnotationTargetName(XtendAnnotationTarget xTarget) {
 		if (xTarget instanceof XtendClass) {
 			return "Class:" + xTarget.name
 		} else if (xTarget instanceof XtendFunction) {

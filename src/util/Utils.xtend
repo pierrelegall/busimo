@@ -89,7 +89,8 @@ class Utils
 	/* Private */
 
 	// UGLY HACK, not used anymore but maybe useful
-	def private static void cleanPath(String uri) {
+	private
+	def static void cleanPath(String uri) {
 		val path = Paths.get(uri)
 		val charset = StandardCharsets.UTF_8
 		var content = new String(Files.readAllBytes(path), charset)
