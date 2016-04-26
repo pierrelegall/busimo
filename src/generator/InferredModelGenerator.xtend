@@ -21,7 +21,7 @@ class InferredModelGenerator
 		this.metamodel = inferredMetamodel
 		this.factory = inferredMetamodel.EFactoryInstance
 		this.model = staticMetamodel.EFactoryInstance.create(
-			findClass("BusinessContainer", staticMetamodel)
+			findClass("BContainer", staticMetamodel)
 		)
 	}
 

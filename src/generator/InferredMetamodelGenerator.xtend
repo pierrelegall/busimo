@@ -89,7 +89,7 @@ class InferredMetamodelGenerator
 		val eClass = EcoreFactory.eINSTANCE.createEClass
 		eClass.name = name.toFirstUpper
 		metamodel.EClassifiers.add(eClass)
-		eClass.ESuperTypes.add(findClass("BusinessObject", staticMetamodel))
+		eClass.ESuperTypes.add(findClass("BObject", staticMetamodel))
 		return eClass
 	}
 
@@ -114,7 +114,7 @@ class InferredMetamodelGenerator
 		val eClassList = EcoreFactory.eINSTANCE.createEClass
 		eClassList.name = eClass.name.toFirstUpper + "List"
 		eClassList.EStructuralFeatures.add(createReference(eClass, true))
-		eClassList.ESuperTypes.add(findClass("BusinessObjectList", staticMetamodel))
+		eClassList.ESuperTypes.add(findClass("BObjectList", staticMetamodel))
 		return eClassList
 	}
 
