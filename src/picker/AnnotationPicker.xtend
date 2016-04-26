@@ -3,6 +3,7 @@ package picker
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.core.xtend.XtendFile
 import org.eclipse.xtend.core.xtend.XtendFunction
+import org.eclipse.xtend.core.xtend.XtendField
 import org.eclipse.xtend.core.xtend.XtendClass
 import org.eclipse.xtend.core.xtend.XtendMember
 import java.util.Stack
@@ -43,6 +44,11 @@ class AnnotationPicker
 		klass.members.forEach[ visit ]
 		val subAnnotations = stack.pop
 		stack.peek.add(klass, subAnnotations)
+	}
+
+	private
+	def dispatch void visit(XtendField field) {
+		stack.peek.add(field)
 	}
 
 	private
