@@ -2,6 +2,7 @@ package generator
 
 import picker.AnnotationPicker
 import entity.Annotation
+import storage.AnnotationStorage
 
 import org.eclipse.xtend.core.xtend.XtendAnnotationTarget
 import org.eclipse.xtend.core.xtend.XtendClass
@@ -11,6 +12,7 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EFactory
 import java.util.List
+import java.util.Stack
 
 class InferredModelGenerator
 {
@@ -38,6 +40,7 @@ class InferredModelGenerator
 	var EObject model
 	var EPackage metamodel
 	var EFactory factory
+	var Stack<EObject> stack = new Stack
 
 	def private dispatch void visit(Annotation annotation) {
 		val annotationName = annotation.XAnnotation.annotationType.simpleName
@@ -47,8 +50,24 @@ class InferredModelGenerator
 		val target = businessClass.EAllAttributes.findFirst[ name == "target" ]
 		businessObject.eSet(target, getXtendAnnotationTargetName(annotation.XTarget))
 
-		val businessClassList = findClassList(businessClass)
-		businessObjectsReference(businessClassList).add(businessObject)
+		if (stack.isEmpty) {
+			val businessClassList = findClassList(businessClass)
+			businessObjectsReference(businessClassList).add(businessObject)
+		} else {
+			val upperObject = stack.peek
+			val reference = upperObject.eClass.EAllReferences.findFirst[
+				name == businessClass.name.toFirstLower
+			]
+			(upperObject.eGet(reference) as List<EObject>).add(businessObject)
+		}
+
+		stack.push(businessObject)
+		annotation.subAnnotations.visit
+	}
+
+	def private dispatch void visit(AnnotationStorage subAnnotations) {
+		subAnnotations.all.forEach[ visit ]
+		stack.pop
 	}
 
 	def private findClass(String name) {
@@ -81,7 +100,7 @@ class InferredModelGenerator
 
 	def private businessObjectsReference(EClass businessClassList) {
 		val businessObjectList = businessObjectListInstance(businessClassList)
-		val reference = businessClassList.EAllReferences.findFirst[ name == "object" ]
+		val reference = businessClassList.EAllReferences.findFirst[ true ]
 		return businessObjectList.eGet(reference) as List<EObject>
 	}
 
