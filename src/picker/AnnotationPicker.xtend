@@ -40,10 +40,14 @@ class AnnotationPicker
 
 	private
 	def dispatch void visit(XtendClass klass) {
-		stack.push(new AnnotationStorage)
-		klass.members.forEach[ visit ]
-		val subAnnotations = stack.pop
-		stack.peek.add(klass, subAnnotations)
+		if (klass.annotations.isEmpty) {
+			klass.members.forEach[ visit ]
+		} else {
+			stack.push(new AnnotationStorage)
+			klass.members.forEach[ visit ]
+			val subAnnotations = stack.pop
+			stack.peek.add(klass, subAnnotations)
+		}
 	}
 
 	private
