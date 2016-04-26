@@ -42,25 +42,25 @@ class InferredMetamodelGenerator
 	def private dispatch void visit(Annotation annotation) {
 		val annotationName = annotation.XAnnotation.annotationType.simpleName
 		val eClass = createClassIfNotExists(annotationName)
-		if (stack.isEmpty) {
-			val eClassList = createClassList(eClass)
-			if (!metamodel.EClassifiers.exists[ name == eClassList.name ]) {
-				metamodel.EClassifiers.add(eClassList)
-			}
-		} else {
+
+		val eClassList = createClassList(eClass)
+		if (!metamodel.EClassifiers.exists[ name == eClassList.name ]) {
+			metamodel.EClassifiers.add(eClassList)
+		}
+
+		if (!stack.isEmpty) {
 			val upperAnnotation = stack.peek
 			if (!upperAnnotation.EStructuralFeatures.exists[ EType == eClass ]) {
 				upperAnnotation.EStructuralFeatures.add(createReference(eClass))
 			}
 		}
-		stack.push(eClass)
-		annotation.subAnnotations.visit
-	}
 
-	def private dispatch void visit(AnnotationStorage subAnnotations) {
-		subAnnotations.all.forEach[ visit ]
+		stack.push(eClass)
+		annotation.subAnnotations.all.forEach[ visit ]
 		stack.pop
 	}
+
+	def private dispatch void visit(AnnotationStorage a) {}
 
 	def private createClassIfNotExists(String className) {
 		var eClass = findClass(className)
@@ -87,20 +87,24 @@ class InferredMetamodelGenerator
 		return eClass
 	}
 
-	def private createReference(EClass eClass) {
+	def private createReference(EClass eClass, boolean containment) {
 		val reference = EcoreFactory.eINSTANCE.createEReference
 		reference.name = eClass.name.toFirstLower
 		reference.EType = eClass
 		reference.lowerBound = 0
 		reference.upperBound = -1
-		reference.containment = true
+		reference.containment = containment
 		return reference
+	}
+
+	def private createReference(EClass eClass) {
+		return createReference(eClass, false)
 	}
 
 	def private createClassList(EClass eClass) {
 		val eClassList = EcoreFactory.eINSTANCE.createEClass
 		eClassList.name = eClass.name.toFirstUpper + "List"
-		eClassList.EStructuralFeatures.add(createReference(eClass))
+		eClassList.EStructuralFeatures.add(createReference(eClass, true))
 		eClassList.ESuperTypes.add(findClass("BusinessObjectList", staticMetamodel))
 		return eClassList
 	}

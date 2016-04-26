@@ -50,10 +50,10 @@ class InferredModelGenerator
 		val target = businessClass.EAllAttributes.findFirst[ name == "target" ]
 		businessObject.eSet(target, getXtendAnnotationTargetName(annotation.XTarget))
 
-		if (stack.isEmpty) {
-			val businessClassList = findClassList(businessClass)
-			businessObjectsReference(businessClassList).add(businessObject)
-		} else {
+		val businessClassList = findClassList(businessClass)
+		businessObjectsReference(businessClassList).add(businessObject)
+
+		if (!stack.isEmpty) {
 			val upperObject = stack.peek
 			val reference = upperObject.eClass.EAllReferences.findFirst[
 				name == businessClass.name.toFirstLower
@@ -62,11 +62,7 @@ class InferredModelGenerator
 		}
 
 		stack.push(businessObject)
-		annotation.subAnnotations.visit
-	}
-
-	def private dispatch void visit(AnnotationStorage subAnnotations) {
-		subAnnotations.all.forEach[ visit ]
+		annotation.subAnnotations.all.forEach[ visit ]
 		stack.pop
 	}
 
@@ -88,9 +84,7 @@ class InferredModelGenerator
 
 	def private businessObjectListInstance(EClass businessClassList) {
 		val objectLists = businessObjectListsReference
-		var list = objectLists.findFirst[ eObject |
-			(eObject as EObject).eClass == businessClassList
-		]
+		var list = objectLists.findFirst[ eClass == businessClassList ]
 		if (list == null) {
 			list = factory.create(businessClassList)
 			objectLists.add(list)
