@@ -15,8 +15,14 @@ import org.eclipse.emf.ecore.EFactory
 import java.util.List
 import java.util.Stack
 
+/**
+ * Infer the model from the annotation picker
+ */
 class InferredModelGenerator
 {
+	/**
+	 * The constructor
+	 */
 	new(AnnotationPicker picker, EPackage inferredMetamodel, EPackage staticMetamodel) {
 		this.picker = picker
 		this.metamodel = inferredMetamodel
@@ -26,11 +32,17 @@ class InferredModelGenerator
 		)
 	}
 
+	/**
+	 * Generate the model and return it
+	 */
 	def generate(AnnotationPicker picker) {
 		picker.annotations.all.forEach[ visit ]
 		return result
 	}
 
+	/**
+	 * Get the resulting model
+	 */
 	def result() {
 		return model
 	}

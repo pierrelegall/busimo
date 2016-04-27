@@ -4,13 +4,22 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EClass
 
+/**
+ * Generate the Sirius .odesign file
+ */
 class DesignGenerator
 {
+	/**
+	 * Generate the design
+	 */
 	def generate(EPackage metamodel) {
 		design = metamodel.visit
 		return result
 	}
 
+	/**
+	 * Get the resulting design
+	 */
 	def result() {
 		return design
 	}

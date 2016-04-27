@@ -9,9 +9,14 @@ import picker.AnnotationPicker
 import entity.Annotation
 import storage.AnnotationStorage
 
-
+/**
+ * Infer the metamodel from the annotation picker
+ */
 class InferredMetamodelGenerator
 {
+	/**
+	 * Generate the metamodel and return it
+	 */
 	def generate(AnnotationPicker picker, EPackage staticMetamodel) {
 		this.staticMetamodel = staticMetamodel
 		initializeMetamodel
@@ -19,6 +24,9 @@ class InferredMetamodelGenerator
 		return result
 	}
 
+	/**
+	 * Get the resulting metamodel
+	 */
 	def result() {
 		return metamodel
 	}

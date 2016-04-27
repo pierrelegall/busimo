@@ -1,7 +1,13 @@
 package generator
 
+/**
+ * Generator of the Sirius .aird file
+ */
 class RepresentationGenerator
 {
+	/**
+	 * Generate the representation and return it
+	 */
 	def generate() {
 		representation = '''
 			<?xml version="1.0" encoding="UTF-8"?>
@@ -15,6 +21,9 @@ class RepresentationGenerator
 		return result
 	}
 
+	/**
+	 * Get the resulting representation
+	 */
 	def result() {
 		return representation
 	}

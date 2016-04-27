@@ -10,17 +10,30 @@ import java.util.Stack
 
 import storage.AnnotationStorage
 
+/**
+ * The annotation picker build an annotation storage
+ * according to the XtendFile input.
+ */
 class AnnotationPicker
 {
+	/**
+	 * The constructor
+	 */
 	new() {
 		stack.push(new AnnotationStorage)
 	}
 
+	/**
+	 * Pick the annotation in the XtendFile
+	 */
 	def pick(XtendFile file) {
 		source = file
 		source.visit
 	}
 
+	/**
+	 * Get the annotation storage
+	 */
 	def annotations() {
 		return stack.peek
 	}

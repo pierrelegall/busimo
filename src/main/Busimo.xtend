@@ -10,6 +10,10 @@ import util.Utils
 
 import java.nio.file.Paths
 
+/**
+ * Entry point of the application.
+ * Use as a clumsy test for now.
+ */
 class Busimo
 {
 	def static void main(String[] args) {

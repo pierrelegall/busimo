@@ -5,13 +5,22 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.EcorePackage
 
+/**
+ * Generate the static part of the metamodel
+ */
 class StaticMetamodelGenerator
 {
+	/**
+	 * Genetate the static part of the metamodel and retun it
+	 */
 	def generate() {
 		initializeMetamodel
 		return result
 	}
 
+	/**
+	 * Get the resulting metamodel
+	 */
 	def EPackage result() {
 		return metamodel
 	}
