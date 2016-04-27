@@ -6,19 +6,17 @@ import org.junit.Ignore
 
 class StringTest
 {
-  var String string
-
-  def setup() {
-    string = new String
-  }
-
   @Test
   def void testToString() {
+  	string = ""
+    assertEquals(string, string.toString)
+    string = "test"
     assertEquals(string, string.toString)
   }
 
   @Test
-  def void testToString2() {
-    assertEquals(string, string.toString)
+  def void testLength() {
+    assertEquals(new String("").length, 0)
+    assertEquals(new String("test").length, 4)
   }
 }
