@@ -3,13 +3,13 @@ package generator
 import picker.AnnotationPicker
 import entity.Annotation
 import entity.AnnotatedNode
-import java.util.ArrayList
 
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.EcoreFactory
 import java.util.Stack
+import java.util.ArrayList
 
 /**
  * Infer the metamodel from the annotation picker

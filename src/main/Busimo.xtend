@@ -1,14 +1,14 @@
 package main
 
+import java.nio.file.Paths
+
+import picker.AnnotationPicker
 import generator.StaticMetamodelGenerator
 import generator.InferredMetamodelGenerator
 import generator.InferredModelGenerator
 import generator.DesignGenerator
 import generator.RepresentationGenerator
-import picker.AnnotationPicker
 import util.Utils
-
-import java.nio.file.Paths
 
 /**
  * Entry point of the application.

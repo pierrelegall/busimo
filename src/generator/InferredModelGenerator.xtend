@@ -4,15 +4,14 @@ import picker.AnnotationPicker
 import entity.AnnotatedNode
 import entity.Annotation
 
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.EFactory
 import org.eclipse.xtend.core.xtend.XtendAnnotationTarget
 import org.eclipse.xtend.core.xtend.XtendClass
 import org.eclipse.xtend.core.xtend.XtendFunction
 import org.eclipse.xtend.core.xtend.XtendField
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.EPackage
-import org.eclipse.emf.ecore.EFactory
 import java.util.List
 import java.util.ArrayList
 import java.util.Stack

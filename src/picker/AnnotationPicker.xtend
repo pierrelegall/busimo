@@ -1,16 +1,16 @@
 package picker
 
+import entity.AnnotatedNode
+
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.core.xtend.XtendFile
-import org.eclipse.xtend.core.xtend.XtendFunction
-import org.eclipse.xtend.core.xtend.XtendField
-import org.eclipse.xtend.core.xtend.XtendClass
 import org.eclipse.xtend.core.xtend.XtendMember
+import org.eclipse.xtend.core.xtend.XtendClass
+import org.eclipse.xtend.core.xtend.XtendField
+import org.eclipse.xtend.core.xtend.XtendFunction
 import java.util.List
 import java.util.ArrayList
 import java.util.Stack
-
-import entity.AnnotatedNode
-import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * The annotation picker build an annotation storage
