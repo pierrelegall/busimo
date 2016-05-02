@@ -5,7 +5,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 annotation StateMachine {}
 annotation State {}
 annotation Transition {
-	String target
+	String next
 }
 
 interface IStateMachine {}
@@ -35,7 +35,7 @@ class Light implements IStateMachine {
 			switchOff(stateMachine as Light)
 		}
 
-		@Transition(target="Off")
+		@Transition(next="Off")
 		def switchOff(Light light) {
 			light.state = new Off
 		}
@@ -52,12 +52,12 @@ class Light implements IStateMachine {
 			} 
 		}
 
-		@Transition(target="On")
+		@Transition(next="On")
 		def switchOn(Light light) {
 			light.state = new On
 		}
 
-		@Transition(target="Gone")
+		@Transition(next="Gone")
 		def getGone(Light light) {
 			light.state = new Gone
 		}
