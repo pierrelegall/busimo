@@ -1,14 +1,16 @@
 package picker
 
-import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.core.xtend.XtendFile
 import org.eclipse.xtend.core.xtend.XtendFunction
 import org.eclipse.xtend.core.xtend.XtendField
 import org.eclipse.xtend.core.xtend.XtendClass
 import org.eclipse.xtend.core.xtend.XtendMember
+import java.util.List
+import java.util.ArrayList
 import java.util.Stack
 
-import storage.AnnotationStorage
+import entity.AnnotatedNode
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * The annotation picker build an annotation storage
@@ -17,31 +19,16 @@ import storage.AnnotationStorage
 class AnnotationPicker
 {
 	/**
-	 * The constructor
-	 */
-	new() {
-		stack.push(new AnnotationStorage)
-	}
-
-	/**
 	 * Pick the annotation in the XtendFile
 	 */
-	def pick(XtendFile file) {
-		source = file
-		source.visit
-	}
-
-	/**
-	 * Get the annotation storage
-	 */
-	def annotations() {
-		return stack.peek
+	def pick(XtendFile codeAst) {
+		codeAst.visit
 	}
 
 	/* Private */
 
-	var XtendFile source
-	val stack = new Stack<AnnotationStorage>
+	@Accessors val List<AnnotatedNode> rootNodes = new ArrayList<AnnotatedNode>
+	val stack = new Stack<AnnotatedNode>
 
 	private
 	def dispatch void visit(XtendFile ast) {
@@ -56,20 +43,21 @@ class AnnotationPicker
 		if (klass.annotations.isEmpty) {
 			klass.members.forEach[ visit ]
 		} else {
-			stack.push(new AnnotationStorage)
+			stack.push(new AnnotatedNode(klass))
 			klass.members.forEach[ visit ]
-			val subAnnotations = stack.pop
-			stack.peek.add(klass, subAnnotations)
+			val node = stack.pop
+			if (stack.isEmpty) rootNodes.add(node)
+			else stack.peek.children.add(node)
 		}
 	}
 
 	private
 	def dispatch void visit(XtendField field) {
-		if (!field.isExtension) stack.peek.add(field)
+		if (!field.isExtension) stack.peek.children.add(new AnnotatedNode(field))
 	}
 
 	private
 	def dispatch void visit(XtendFunction function) {
-		if (!function.isStatic) stack.peek.add(function)
+		if (!function.isStatic) stack.peek.children.add(new AnnotatedNode(function))
 	}
 }
