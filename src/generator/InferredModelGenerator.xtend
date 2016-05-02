@@ -54,11 +54,13 @@ class InferredModelGenerator
 	var EObject model
 	var EPackage metamodel
 	var EFactory factory
+	var Stack<AnnotatedNode> nodeStack = new Stack
 	var Stack<ArrayList<EObject>> objectsStack = new Stack
 	var Stack<ArrayList<EObject>> referencesStack = new Stack
 
 	private
 	def dispatch void visit(AnnotatedNode node) {
+		nodeStack.push(node)
 		objectsStack.push(new ArrayList<EObject>)
 		referencesStack.push(new ArrayList<EObject>)
 
@@ -77,6 +79,7 @@ class InferredModelGenerator
 			]
 		}
 		referencesStack.pop
+		nodeStack.pop
 	}
 
 	private
@@ -86,7 +89,7 @@ class InferredModelGenerator
 		val businessObject = factory.create(businessClass)
 
 		val target = businessClass.EAllAttributes.findFirst[ name == "target" ]
-		businessObject.eSet(target, getXtendAnnotationTargetName(annotation.target))
+		businessObject.eSet(target, getXtendAnnotationTargetName(nodeStack.peek.sourceNode))
 		objectsStack.peek.add(businessObject)
 		referencesStack.peek.add(businessObject)
 

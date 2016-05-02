@@ -10,13 +10,11 @@ import org.eclipse.xtext.common.types.JvmType
  */
 class Annotation
 {
-	new(XAnnotation xAnnotation, XtendAnnotationTarget target) {
+	new(XAnnotation xAnnotation) {
 		this.type = xAnnotation.annotationType
-		this.target = target
 	}
 
 	/* Private */
 
 	@Accessors var JvmType type
-	@Accessors var XtendAnnotationTarget target
 }
