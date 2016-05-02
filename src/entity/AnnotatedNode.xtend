@@ -9,7 +9,7 @@ class AnnotatedNode
 {
 	new(XtendAnnotationTarget target) {
 		target.annotations.forEach[ xAnnotation |
-			annotations.add(new Annotation(xAnnotation))
+			annotations.add(new Annotation(xAnnotation, target))
 		]
 	}
 
