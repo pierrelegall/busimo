@@ -31,6 +31,12 @@ class AnnotationPicker
 	val stack = new Stack<AnnotatedNode>
 
 	private
+	def void addNode(AnnotatedNode node) {
+		if (stack.isEmpty) rootNodes.add(node)
+		else stack.peek.children.add(node)
+	}
+
+	private
 	def dispatch void visit(XtendFile ast) {
 		ast.xtendTypes.forEach[ visit ]
 	}
@@ -46,18 +52,17 @@ class AnnotationPicker
 			stack.push(new AnnotatedNode(klass))
 			klass.members.forEach[ visit ]
 			val node = stack.pop
-			if (stack.isEmpty) rootNodes.add(node)
-			else stack.peek.children.add(node)
+			addNode(node)
 		}
 	}
 
 	private
 	def dispatch void visit(XtendField field) {
-		if (!field.isExtension) stack.peek.children.add(new AnnotatedNode(field))
+		if (!field.isExtension) addNode(new AnnotatedNode(field))
 	}
 
 	private
 	def dispatch void visit(XtendFunction function) {
-		if (!function.isStatic) stack.peek.children.add(new AnnotatedNode(function))
+		if (!function.isStatic) addNode(new AnnotatedNode(function))
 	}
 }
