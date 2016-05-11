@@ -21,8 +21,8 @@ class AnnotationPicker
 	/**
 	 * Pick the annotation in the XtendFile
 	 */
-	def pick(XtendFile codeAst) {
-		codeAst.visit
+	def pick(XtendFile ast) {
+		ast.visit
 	}
 
 	/* Private */
