@@ -1,6 +1,6 @@
 package picker
 
-import entity.AnnotatedNode
+import entity.AnnotableNode
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.core.xtend.XtendFile
@@ -27,11 +27,11 @@ class AnnotationPicker
 
 	/* Private */
 
-	@Accessors val List<AnnotatedNode> rootNodes = new ArrayList<AnnotatedNode>
-	val stack = new Stack<AnnotatedNode>
+	@Accessors val List<AnnotableNode> rootNodes = new ArrayList<AnnotableNode>
+	val stack = new Stack<AnnotableNode>
 
 	private
-	def void addNode(AnnotatedNode node) {
+	def void addNode(AnnotableNode node) {
 		if (stack.isEmpty) rootNodes.add(node)
 		else stack.peek.children.add(node)
 	}
@@ -46,23 +46,19 @@ class AnnotationPicker
 
 	private
 	def dispatch void visit(XtendClass klass) {
-		if (klass.annotations.isEmpty) {
-			klass.members.forEach[ visit ]
-		} else {
-			stack.push(new AnnotatedNode(klass))
-			klass.members.forEach[ visit ]
-			val node = stack.pop
-			addNode(node)
-		}
+		stack.push(new AnnotableNode(klass))
+		klass.members.forEach[ visit ]
+		val node = stack.pop
+		addNode(node)
 	}
 
 	private
 	def dispatch void visit(XtendField field) {
-		if (!field.isExtension) addNode(new AnnotatedNode(field))
+		if (!field.isExtension) addNode(new AnnotableNode(field))
 	}
 
 	private
 	def dispatch void visit(XtendFunction function) {
-		if (!function.isStatic) addNode(new AnnotatedNode(function))
+		if (!function.isStatic) addNode(new AnnotableNode(function))
 	}
 }

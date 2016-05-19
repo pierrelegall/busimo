@@ -2,7 +2,7 @@ package generator
 
 import picker.AnnotationPicker
 import entity.Annotation
-import entity.AnnotatedNode
+import entity.AnnotableNode
 
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EClass
@@ -49,7 +49,7 @@ class InferredMetamodelGenerator
 	}
 
 	private
-	def dispatch void visit(AnnotatedNode node) {
+	def dispatch void visit(AnnotableNode node) {
 		eClassStack.push(new ArrayList<EClass>)
 		referencesStack.push(new ArrayList<EReference>)
 

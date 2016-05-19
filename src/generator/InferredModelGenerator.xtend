@@ -1,7 +1,7 @@
 package generator
 
 import picker.AnnotationPicker
-import entity.AnnotatedNode
+import entity.AnnotableNode
 import entity.Annotation
 
 import org.eclipse.emf.ecore.EObject
@@ -54,12 +54,12 @@ class InferredModelGenerator
 	var EObject model
 	var EPackage metamodel
 	var EFactory factory
-	var Stack<AnnotatedNode> nodeStack = new Stack
+	var Stack<AnnotableNode> nodeStack = new Stack
 	var Stack<ArrayList<EObject>> objectsStack = new Stack
 	var Stack<ArrayList<EObject>> referencesStack = new Stack
 
 	private
-	def dispatch void visit(AnnotatedNode node) {
+	def dispatch void visit(AnnotableNode node) {
 		nodeStack.push(node)
 		objectsStack.push(new ArrayList<EObject>)
 		referencesStack.push(new ArrayList<EObject>)

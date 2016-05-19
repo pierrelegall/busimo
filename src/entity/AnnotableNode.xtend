@@ -5,7 +5,7 @@ import org.eclipse.xtend.core.xtend.XtendAnnotationTarget
 import java.util.List
 import java.util.ArrayList
 
-class AnnotatedNode
+class AnnotableNode
 {
 	new(XtendAnnotationTarget target) {
 		this.sourceNode = target
@@ -18,5 +18,5 @@ class AnnotatedNode
 
 	@Accessors var XtendAnnotationTarget sourceNode
 	@Accessors val List<Annotation> annotations = new ArrayList<Annotation>
-	@Accessors val List<AnnotatedNode> children = new ArrayList<AnnotatedNode>
+	@Accessors val List<AnnotableNode> children = new ArrayList<AnnotableNode>
 }
